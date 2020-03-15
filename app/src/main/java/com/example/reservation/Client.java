@@ -5,24 +5,22 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
@@ -34,11 +32,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Client extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener/*, NavigationView.OnNavigationItemSelectedListener*/ {
@@ -74,6 +70,31 @@ public class Client extends AppCompatActivity implements GoogleApiClient.OnConne
         clientGoogleSignInBuilder();
         buildNavControllerView();
 
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                int menuId = destination.getId();
+
+                switch (menuId){
+                    case R.id.signOutBB:
+                        FirebaseAuth.getInstance().signOut();
+                         Log.v(TAG, "Should be Signing out -- 1");
+                         Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                             @Override
+                             public void onResult(@NonNull Status status) {
+                                 if (status.isSuccess()) {
+                                     gotoMainActivity();
+                                     Log.v(TAG, "Signing out -- 2");
+                                 } else {
+                                     Toast.makeText(context, "Log Out Failed", Toast.LENGTH_SHORT).show();
+                                 }
+                             }
+                         });
+
+
+                }
+            }
+        });
     }
 
 

@@ -1,12 +1,15 @@
 package com.example.reservation.ui.reserve;
 
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -25,7 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class ReservationFragment extends Fragment {
+public class ReservationFragment extends Fragment implements TimePickerDialog.OnTimeSetListener {
     public AppBarConfiguration mAppBarConfiguration;
     public RecyclerView recyclerView;
     public RecyclerView.Adapter adapter;
@@ -39,6 +42,9 @@ public class ReservationFragment extends Fragment {
     public String TAG;
     public DatabaseReference databaseReference;
     public View root;
+    public Button b;
+
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -49,13 +55,9 @@ public class ReservationFragment extends Fragment {
         recyclerView = root.findViewById(R.id.recyclerView);
         buildRecyclerView();
 
+
         databaseReference = FirebaseDatabase.getInstance().getReference().child("cardView");
         databaseReference.keepSynced(true);
-
-        recycleArrayList.add(new ReservationItem(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), ""));
-        recycleArrayList.add(new ReservationItem(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), ""));
-        recycleArrayList.add(new ReservationItem(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), ""));
-
 
         createRecycleList();
         setButtonAdd();
@@ -72,11 +74,11 @@ public class ReservationFragment extends Fragment {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            int position = viewHolder.getAdapterPosition();
+            int position = viewHolder.getPosition();
 
             switch (direction) {
                 case ItemTouchHelper.LEFT:
-                    recycleArrayList.remove(position - 1);
+                    recycleArrayList.remove(position);
                     adapter.notifyItemChanged(position, recycleArrayList);
                     adapter.notifyDataSetChanged();
                     break;
@@ -93,7 +95,6 @@ public class ReservationFragment extends Fragment {
     }
 
     public void createRecycleList() {
-        recycleArrayList = new ArrayList<>();
         recycleArrayList.add(new ReservationItem(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), ""));
 
     }
@@ -129,5 +130,19 @@ public class ReservationFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        TextView tv = root.findViewById(R.id.time);
+        tv.setText(hourOfDay + ":" + minute);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+
+
     }
 }
