@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_reserve"
+            android:icon="@drawable/reserveicon"
+            android:title="Reservation" />
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_home" />
+
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_slideshow" />
+        <item
+            android:id="@+id/nav_maps"
+            android:enabled="true"
+            android:title="Maps"
+            android:icon="@drawable/maps_icon"/>
+        <item
+            android:id="@+id/zz2"
+            android:enabled="false"
+            android:title="" />
+        <item
+            android:id="@+id/zz3"
+            android:enabled="false"
+            android:title="" />
+        <item
+            android:id="@+id/zz4"
+            android:enabled="false"
+            android:title="" />
+        <item
+            android:id="@+id/zz5"
+            android:enabled="false"
+            android:title="" />
+        <item
+            android:id="@+id/zz6"
+            android:enabled="false"
+            android:title="" />
+        <item
+            android:id="@+id/zz8"
+            android:enabled="false"
+            android:title="" />
+
+        <item
+            android:id="@+id/singOutBB"
+            android:icon="@drawable/logout"
+            android:title="Sign Out" />
+
+    </group>
+</menu>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1017587694323",
+    "firebase_url": "https://reservationapp-696969.firebaseio.com",
+    "project_id": "reservationapp-696969",
+    "storage_bucket": "reservationapp-696969.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1017587694323:android:df43a5cf9506324fe75586",
+        "android_client_info": {
+          "package_name": "com.example.reservation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1017587694323-srmhahee419juff5kvfkgkn1cibmurm0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.reservation",
+            "certificate_hash": "32ae207a0b2c12ed45da5deef207bd0ce379d597"
+          }
+        },
+        {
+          "client_id": "1017587694323-v7bco03j2gpllbrbc05nvi4huhf26gsu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtmyB_xGsJq-DM4k5OIIMnwpYk1zekXns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1017587694323-v7bco03j2gpllbrbc05nvi4huhf26gsu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

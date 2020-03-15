@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_reserve">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.reservation.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home">
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_reserve"
+        android:name="com.example.reservation.ui.reserve.ReservationFragment"
+        android:label="@string/menu_reserve"
+        tools:layout="@layout/fragment_reserve" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.example.reservation.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+
+<!--    <fragment-->
+<!--        android:id="@+id/nav_maps"-->
+<!--        android:name="com.example.reservation.ui.slideshow.SlideshowFragment"-->
+<!--        android:label="@string/menu_maps"-->
+<!--        tools:layout="@layout/fragment_slideshow" />-->
+
+
+</navigation>
