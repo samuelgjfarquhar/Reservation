@@ -13,6 +13,13 @@
             android:enabled="true"
             android:icon="@drawable/maps_icon"
             android:title="Maps" />
+
+        <item
+            android:id="@+id/nav_allreserves"
+            android:enabled="true"
+            android:icon="@drawable/allres"
+            android:title="See Reservations" />
+
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
@@ -26,6 +33,7 @@
             android:title="@string/menu_slideshow"
             android:enabled="false"
             android:visible="false"/>
+
 
 
     </group>

@@ -41,7 +41,7 @@ public class Recycle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_reserve);
-        createRecycleList();
+//        createRecycleList();
         buildRecyclerView();
 
 
@@ -67,20 +67,20 @@ public class Recycle extends AppCompatActivity {
             }
         }
     };
-    public void insertCardView(int position){
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("cardView");
-        recycleArrayList.add(new  ReservationItem(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), ""));
-    }
-
-    public void insertFIrebaseCardView(int position){
-        recycleArrayList.add(new  ReservationItem(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), ""));
-    }
-
-    public void createRecycleList(){
-        recycleArrayList = new ArrayList<>();
-        recycleArrayList.add(new  ReservationItem(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), ""));
-
-    }
+//    public void insertCardView(int position){
+//        databaseReference = FirebaseDatabase.getInstance().getReference().child("cardView");
+//        recycleArrayList.add(new  ReservationItem(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), ""));
+//    }
+// //TODO
+//    public void insertFIrebaseCardView(int position){
+//        recycleArrayList.add(new  ReservationItem(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), ""));
+//    }
+//
+//    public void createRecycleList(){
+//        recycleArrayList = new ArrayList<>();
+//        recycleArrayList.add(new  ReservationItem(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), ""));
+//
+//    }
 
     public void buildRecyclerView(){
         nameTwo = findViewById(R.id.name2);

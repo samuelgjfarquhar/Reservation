@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 if (result.isSuccess()) {
 
                     if (AdminID.equals(accSecond.getId())) {
-                        Intent newIntent = new Intent(this, Client.class);
+                        Intent newIntent = new Intent(this, Admin.class);
                         startActivity(newIntent);
                         finish();
                     } else {

@@ -1,6 +1,5 @@
 package com.example.reservation.ui.reserve;
 
-import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,12 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,49 +19,31 @@ import com.example.reservation.R;
 import com.example.reservation.ReservationItem;
 import com.example.reservation.ReserveAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class ReservationFragment extends Fragment implements TimePickerDialog.OnTimeSetListener {
-    public AppBarConfiguration mAppBarConfiguration;
-    public RecyclerView recyclerView;
-    public RecyclerView.Adapter adapter;
-    public RecyclerView.LayoutManager layoutManager;
-    public ArrayList<ReservationItem> recycleArrayList = new ArrayList<>();
-    public TextView nameTwo;
-    public EditText editText1;
-    public EditText editText2;
-    public EditText editText3;
-    public FloatingActionButton buttonRemove;
-    public String TAG;
-    public DatabaseReference databaseReference;
-    public View root;
-    public Button b;
+public class ReservationFragment extends Fragment {
 
-
-
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-        root = inflater.inflate(R.layout.fragment_reserve, container, false);
-
-        recyclerView = root.findViewById(R.id.recyclerView);
-        buildRecyclerView();
-
-
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("cardView");
-        databaseReference.keepSynced(true);
-
-        createRecycleList();
-        setButtonAdd();
-
-        return root;
-    }
-
+    String inst;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<ReservationItem> recycleArrayList = new ArrayList<>();
+    private CardView cv;
+    private FloatingActionButton buttonRemove;
+    private String TAG;
+    private View root;
+    private String clientName = "";
+    private String resAddress = "";
+    private String resName = "";
+    private int resParty = 0;
+    private String resTime = "";
+    private EditText nameTwo;
+    private EditText restaurantAddress;
+    private EditText restaurantName;
+    private EditText restaurantParty;
+    private EditText reservationTime;
+    private Button reservebtn;
     private ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
         @Override
@@ -74,12 +53,14 @@ public class ReservationFragment extends Fragment implements TimePickerDialog.On
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            //when user swipes left on the cardview., the arraylist wil find the position of swiped item and remove it from the recyclerview
             int position = viewHolder.getPosition();
 
             switch (direction) {
                 case ItemTouchHelper.LEFT:
                     recycleArrayList.remove(position);
                     adapter.notifyItemChanged(position, recycleArrayList);
+                    //notifty adapter of change in arraylist at certian position and update view
                     adapter.notifyDataSetChanged();
                     break;
 
@@ -88,19 +69,39 @@ public class ReservationFragment extends Fragment implements TimePickerDialog.On
         }
     };
 
-    public void insertCardView(int position) {
-
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("cardView");
-        recycleArrayList.add(new ReservationItem(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), ""));
+    public ReservationFragment() {
     }
 
-    public void createRecycleList() {
-        recycleArrayList.add(new ReservationItem(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), ""));
 
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+
+        root = inflater.inflate(R.layout.fragment_reserve, container, false);
+
+
+        buildRecyclerView(); //creates views for adapter, viewholder and layput manager in another method
+        createRecycleList();
+        setButtonAdd();
+
+        return root;
+    }
+
+    public void insertCardView(int position) {
+
+
+        recycleArrayList.add(new ReservationItem("", "", "", "", ""));
+        //adds item to array list using get methods from adapter
+    }
+
+
+
+    public void createRecycleList() {
+        recycleArrayList.add(new ReservationItem("", "", "", "", ""));
+        //initalises the array by adding an inital object
     }
 
     public void buildRecyclerView() {
-        recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
+        recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
 
@@ -112,37 +113,31 @@ public class ReservationFragment extends Fragment implements TimePickerDialog.On
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        nameTwo = root.findViewById(R.id.name2);
-        editText3 = root.findViewById(R.id.editTextAddress);
 
     }
 
     public void setButtonAdd() {
 
-        buttonRemove = root.findViewById(R.id.button_add);
+        buttonRemove = root.findViewById(R.id.button_add); //inialises button from the recylcer "root" view
         buttonRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = recycleArrayList.size();
-                insertCardView(position + 1);
+                insertCardView(position + 1); //adds cardview and new addition to recylcer array list at position + 1
                 Log.v(TAG, "Adding CardView");
                 adapter.notifyItemInserted(position);
-
             }
         });
+        getActivity().getWindow().getDecorView();
     }
+
 
     @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        TextView tv = root.findViewById(R.id.time);
-        tv.setText(hourOfDay + ":" + minute);
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
 
 
     }
+
+
 }

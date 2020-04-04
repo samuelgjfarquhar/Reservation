@@ -6,28 +6,43 @@ import android.widget.TextView;
 public class ReservationItem {
 
     //ExampleItem
-    private String eTextAddress;
-    private String  mName;
+    private String  mName = "";
+    private String eTextAddress= "";
+    private String eTextResName= "";
+    private String eTextResParty = "";
+    private String eTextTime = "";
 
-
-    public ReservationItem(String  resName, String textE3){
+    public ReservationItem(String resName, String textadd, String textname, String textParty, String texttime){
 
         mName = resName;
-
-        eTextAddress = textE3;
+        eTextAddress = textadd;
+        eTextResName = textname;
+        eTextResParty = textParty;
+        eTextTime = texttime;
     }
 
-    public ReservationItem(TextView nameTwo, EditText editText1, EditText editText2, EditText editText3) {
+    public ReservationItem(EditText nameTwo, EditText editTextAddress, EditText editTextResName, EditText editTextParty, EditText editTextTime) {
     }
 
+    //get set methods to initalise arraylist that will get used later in adapter using ViewHolder
 
     public String  getmName() {
         return mName;
     }
 
-
     public String geteTextAddress() {
         return eTextAddress;
     }
 
+    public String geteTextResName() {
+        return eTextResName;
+    }
+
+    public String geteTextResParty() {
+        return eTextResParty;
+    }
+
+    public String geteTextTime() {
+        return eTextTime;
+    }
 }

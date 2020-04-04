@@ -38,7 +38,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
-public class Client extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+public class Admin extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
     private AppBarConfiguration mAppBarConfiguration;
     private GoogleApiClient googleApiClient;
@@ -60,7 +60,7 @@ public class Client extends AppCompatActivity implements GoogleApiClient.OnConne
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client2);
+        setContentView(R.layout.activity_admin);
         Name11 = findViewById(R.id.name);
         Email11 = findViewById(R.id.email);
         pImage = (ImageView) findViewById(R.id.profile_pic);
@@ -144,7 +144,7 @@ public class Client extends AppCompatActivity implements GoogleApiClient.OnConne
     }
 
     private void gotoMainActivity() {
-        startActivity(new Intent(Client.this, MainActivity.class));
+        startActivity(new Intent(Admin.this, MainActivity.class));
         finish();
     }
     public void clientGoogleSignInBuilder() {
@@ -160,7 +160,7 @@ public class Client extends AppCompatActivity implements GoogleApiClient.OnConne
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_reserve, R.id.nav_slideshow, R.id.nav_maps)
+                R.id.nav_home, R.id.nav_reserve, R.id.nav_slideshow, R.id.nav_maps, R.id.nav_allreserves)
                 .setDrawerLayout(drawer)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
